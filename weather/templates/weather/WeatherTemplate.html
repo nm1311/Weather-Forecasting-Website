@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static "weather/styles/main.css" %}">
+</head>
+<body>
+
+    <div class="container">
+
+        <h4 class="heading1">What's the Weather like in your city ?  Let's find out.</h4><br><br><br>
+
+        <form method="POST">
+            {% csrf_token %}
+            <center><div class="input-group input-group-xs">
+                {{ form.name}} <br>
+                <button type="submit" class="btn-success btn-lg">Add City</button>
+            </div></center>
+            <br><br>
+        </form>
+
+
+
+
+        {% for city_weather in weather_data %}
+
+            <div class="card">
+
+                <div class="card-header">
+                    <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="Image Here"  height="60px" width="40px">
+                    <div class="heading2">
+                        <strong>{{ city_weather.city }}</strong>
+                    </div>
+                </div>
+                <div class="card-body">{{ city_weather.temperature }}° C</div>
+                <div class="card-footer">{{ city_weather.description }}</div>
+            </div>
+
+        {% endfor %}
+
+
+    </div>
+
+
+
+
+
+
+
+
+<script src="{% static "weather/scripts/Jquery.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
